@@ -10,7 +10,6 @@ import 'dart:ui' as ui;
 import '../../controllers/patient_controller.dart';
 import '../widgets/input_fields.dart';
 import '../widgets/login_signup_background.dart';
-import '../widgets/logo_light.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String id = 'signup_screen';
@@ -60,14 +59,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
       CustomDialog.showLoading(msg: "Processing Signup");
       print("valid");
 
-      bool signup = await c.signup(nameController.text, emailController.text, passwordController.text, confirmPasswordController.text);
+      bool signup = await c.signup(nameController.text, emailController.text,
+          passwordController.text, confirmPasswordController.text);
       if (signup) {
         CustomDialog.dismiss();
         CustomDialog.showToast("Sign up successful!");
-        Navigator.pushNamedAndRemoveUntil(context, LoginScreen.id, (route) => false);
+        Navigator.pushNamedAndRemoveUntil(
+            context, LoginScreen.id, (route) => false);
       } else {
         CustomDialog.dismiss();
-        CustomDialog.showToast("Signup failed!");
+        CustomDialog.showToast(
+            "A user with this email already exist!\nPlease use a different email address and try again.");
       }
     } else {
       print("invalid");
@@ -113,7 +115,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Text(
                   "Registration",
                   style:
-                  TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
                 ),
               ),
               Form(
@@ -428,8 +430,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 //     );
 //   }
 // }
-
-
 
 class RPSCustomPainter extends CustomPainter {
   @override

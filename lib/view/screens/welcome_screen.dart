@@ -10,7 +10,7 @@ import '../../controllers/patient_controller.dart';
 
 class WelcomeScreen extends StatelessWidget {
   final PatientController c = Get.put(PatientController());
-   WelcomeScreen({Key? key}) : super(key: key);
+  WelcomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +23,12 @@ class WelcomeScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-
               TextButton(
-                  onPressed: () {
-
-                  },
+                  onPressed: () {},
                   child: Text(
                     "Language",
                     style:
-                    TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
                   )),
               SizedBox(
                 width: 18.w,
@@ -44,6 +41,13 @@ class WelcomeScreen extends StatelessWidget {
         child: Column(
           children: [
             // GetWellLogoLight(),
+            Text(
+              "TeleDoc",
+              style: TextStyle(
+                  fontSize: 26.sp,
+                  color: Colors.black87,
+                  fontWeight: FontWeight.bold),
+            ),
             SizedBox(
               height: 38.h,
             ),

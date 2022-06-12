@@ -4,6 +4,8 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:teledoc/view/screens/home_screen.dart';
 import 'package:teledoc/view/screens/login_screen.dart';
+import 'package:teledoc/view/screens/profile_edit_screen.dart';
+import 'package:teledoc/view/screens/profile_screen.dart';
 import 'package:teledoc/view/screens/register_screen.dart';
 import 'package:teledoc/view/screens/welcome_screen.dart';
 
@@ -24,11 +26,13 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home:  WelcomeScreen(),
+        home: WelcomeScreen(),
         routes: {
           LoginScreen.id: (context) => LoginScreen(),
           RegisterScreen.id: (context) => RegisterScreen(),
           HomeScreen.id: (context) => HomeScreen(),
+          ProfileScreen.id: (context) => ProfileScreen(),
+          ProfileEditScreen.id: (context) => ProfileEditScreen(),
         },
         // here
         navigatorObservers: [FlutterSmartDialog.observer],
@@ -38,4 +42,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
