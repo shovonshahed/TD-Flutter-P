@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:teledoc/models/doctor.dart';
+import 'package:teledoc/models/schedule.dart';
 import 'package:teledoc/services/loading_service.dart';
 import '../models/index.dart';
 import '../services/network_service.dart';
@@ -26,6 +27,18 @@ class PatientController extends GetxController {
       print("Doctor Name: ${doctors.elementAt(1).name}");
     });
     notifyChildrens();
+  }
+
+  Future<bool> bookSchedule(String email, num dayOfWeek) async {
+    final Either<String, Schedule> response =
+        await NetworkService.bookSchedule(email, dayOfWeek.toString(), _token);
+    bool update = false;
+    response.fold((left) {
+      update = false;
+    }, (right) {
+      update = !update;
+    });
+    return update;
   }
 
   Future<bool> updateProfile(Patient tempPatient) async {

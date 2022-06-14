@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:teledoc/models/doctor.dart';
 
 import '../models/index.dart';
+import '../models/schedule.dart';
 
 class NetworkService {
   static const url = "https://teledoc.azurewebsites.net";
@@ -28,6 +29,33 @@ class NetworkService {
             .map((e) => Doctor.fromJson(e as Map<String, dynamic>))
             .toList();
         return Right(doctors);
+      } else {
+        return const Left("Some error occurred.");
+      }
+    } catch (e) {
+      print(e);
+      return const Left("Some error occurred.");
+      // throw e;
+    }
+  }
+
+  static Future<Either<String, Schedule>> bookSchedule(
+      String email, String dayOfWeek, String token) async {
+    Map<String, dynamic> parameters = {
+      "email": email,
+      "dayOfWeek": dayOfWeek,
+    };
+    try {
+      Dio dio = new Dio();
+      dio.options.headers['content-Type'] = 'application/json';
+      dio.options.headers["Authorization"] = "Bearer ${token}";
+      var response = await dio.post(url + '/api/doctors/booking',
+          queryParameters: parameters);
+      print(response.data);
+      if (response.statusCode == 200) {
+        // Map<String, dynamic> userMap = jsonDecode(response.body);
+        Schedule schedule = Schedule.fromJson(response.data);
+        return Right(schedule);
       } else {
         return const Left("Some error occurred.");
       }
