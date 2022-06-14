@@ -19,100 +19,104 @@ class ProfileScreen extends StatelessWidget {
   final PatientController controller = Get.find();
   @override
   Widget build(BuildContext context) {
-    final Patient patient = controller.patient;
     return Scaffold(
-        drawer: SideDrawer(),
-        appBar: AppBar(
-          title: Text(
-            "Profile",
-            style: kAppbarTextStyle.copyWith(color: kColorDarker),
-          ),
-          leading: TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Icon(
-              Icons.arrow_back,
-              color: kColorDarker,
-            ),
-          ),
-          elevation: 0,
-          backgroundColor: Colors.transparent,
+      drawer: SideDrawer(pageName: 'profile-view',),
+      appBar: AppBar(
+        title: Text(
+          "Profile",
+          style: kAppbarTextStyle.copyWith(color: kColorDarker),
         ),
-        body: SingleChildScrollView(
-            child: Column(
+        leading: TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: kColorDarker,
+          ),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              // margin: EdgeInsets.only(top: 47.h),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Profile Information",
-                        style: kBodyTextStyle,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.popAndPushNamed(
-                              context, ProfileEditScreen.id);
-                        },
+            Obx(() {
+              final patient = controller.patient.value;
+              return Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                // margin: EdgeInsets.only(top: 47.h),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Profile Information",
+                          style: kBodyTextStyle,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, ProfileEditScreen.id);
+                          },
+                          child: Text(
+                            "Edit",
+                            style:
+                                kBodyTextStyle3.copyWith(color: kAccentColor),
+                          ),
+                        )
+                      ],
+                    ),
+                    ProfileFieldWidget(
+                      title: "Name",
+                      value: patient.name,
+                      icon: CupertinoIcons.profile_circled,
+                    ),
+                    ProfileFieldWidget(
+                      title: "Email",
+                      value: patient.email,
+                      icon: CupertinoIcons.mail,
+                    ),
+                    ProfileFieldWidget(
+                      title: "Phone Number",
+                      value: patient.phoneNumber ?? "",
+                      icon: CupertinoIcons.phone,
+                    ),
+                    ProfileFieldWidget(
+                      title: "Gender",
+                      value: patient.gender ?? "",
+                      icon: CupertinoIcons.square_righthalf_fill,
+                    ),
+                    ProfileFieldWidget(
+                      title: "Date Of Birth",
+                      value:
+                          "${DateFormat.yMMMMd().format(DateTime.parse(patient.dateOfBirth!))}",
+                      icon: CupertinoIcons.calendar,
+                    ),
+                    ProfileFieldWidget(
+                      title: "Address",
+                      value: patient.address ?? "",
+                      icon: CupertinoIcons.location,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 50.h),
+                      child: InkWell(
+                        onTap: () {},
                         child: Text(
-                          "Edit",
+                          "Change Password",
                           style: kBodyTextStyle3.copyWith(color: kAccentColor),
                         ),
-                      )
-                    ],
-                  ),
-                  ProfileFieldWidget(
-                    title: "Name",
-                    value: patient.name,
-                    icon: CupertinoIcons.profile_circled,
-                  ),
-                  ProfileFieldWidget(
-                    title: "Email",
-                    value: patient.email,
-                    icon: CupertinoIcons.mail,
-                  ),
-                  ProfileFieldWidget(
-                    title: "Phone Number",
-                    value: patient.phoneNumber ?? "",
-                    icon: CupertinoIcons.phone,
-                  ),
-                  ProfileFieldWidget(
-                    title: "Gender",
-                    value: patient.gender ?? "",
-                    icon: CupertinoIcons.square_righthalf_fill,
-                  ),
-                  ProfileFieldWidget(
-                    title: "Date Of Birth",
-                    value:
-                        "${DateFormat.yMMMMd().format(DateTime.parse(patient.dateOfBirth!))}",
-                    icon: CupertinoIcons.calendar,
-                  ),
-                  ProfileFieldWidget(
-                    title: "Address",
-                    value: patient.address ?? "",
-                    icon: CupertinoIcons.location,
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 50.h),
-                    child: InkWell(
-                      onTap: () {},
-                      child: Text(
-                        "Change Password",
-                        style: kBodyTextStyle3.copyWith(color: kAccentColor),
                       ),
-                    ),
-                  )
-                ],
-              ),
-            )
+                    )
+                  ],
+                ),
+              );
+            })
           ],
-        )));
+        ),
+      ),
+    );
   }
 }
 

@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:teledoc/view/screens/doctor_profile_screen.dart';
 import '../../controllers/patient_controller.dart';
 
+import '../widgets/appbar.dart';
 import '../widgets/drawer.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -15,37 +18,36 @@ class HomeScreen extends StatelessWidget {
         return false;
       },
       child: Scaffold(
-        appBar: MyCustomAppBar(),
-        drawer: SideDrawer(),
+        appBar: MyCustomAppBar(title: "Teledoc"),
+        drawer: SideDrawer(pageName: 'home-page'),
         body: SafeArea(
-          child: Text(controller.patient.name),
+          child: Column(
+            children: [
+              ListTile(
+                title: Text("Doctors"),
+              ),
+              Obx(() => ListView.builder(
+                    itemCount: controller.doctors.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DoctorProfileScreen(
+                                  doctor: controller.doctors[index]),
+                            )),
+                        leading: Icon(CupertinoIcons.profile_circled),
+                        title: Text(controller.doctors[index].name),
+                        subtitle:
+                            Text(controller.doctors[index].speciality ?? ""),
+                      );
+                    },
+                  )),
+            ],
+          ),
         ),
       ),
     );
   }
-}
-
-class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MyCustomAppBar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      title: Text("TeleDoc"),
-      centerTitle: true,
-      elevation: 0,
-      leading: IconButton(
-        onPressed: () {
-          Scaffold.of(context).openDrawer();
-        },
-        icon: Icon(Icons.menu),
-      ),
-    );
-  }
-
-  @override
-  // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(70);
 }

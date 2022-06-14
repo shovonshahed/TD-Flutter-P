@@ -1,24 +1,41 @@
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
+import 'package:teledoc/models/doctor.dart';
+import 'package:teledoc/services/loading_service.dart';
 import '../models/index.dart';
 import '../services/network_service.dart';
 
 class PatientController extends GetxController {
   // late LoginResponse _loginResponse;
-  late Patient _patient;
+  // late Patient _patient;
+  var patient = Patient().obs;
   late String _token;
+  // List<Doctor> doctors = [];
+  var doctors = <Doctor>[].obs;
   RxBool authenticated = false.obs;
 
-  Patient get patient => _patient;
+  // Patient get patient => _patient;
 
-  Future<bool> updateProfile(Patient patient) async {
-    final Either<String, Patient> response =
-        await NetworkService.updateProfile(patient, _patient.email, _token);
+  Future getDoctors() async {
+    final Either<String, List<Doctor>> response =
+        await NetworkService.getDoctors(_token);
+    response.fold((left) {
+      CustomDialog.showToast("Doctors loading failed");
+    }, (right) {
+      doctors.value = right;
+      print("Doctor Name: ${doctors.elementAt(1).name}");
+    });
+    notifyChildrens();
+  }
+
+  Future<bool> updateProfile(Patient tempPatient) async {
+    final Either<String, Patient> response = await NetworkService.updateProfile(
+        tempPatient, tempPatient.email, _token);
     bool update = false;
     response.fold((left) {
       update = false;
     }, (right) {
-      _patient = right;
+      patient.value = right;
       notifyChildrens();
       update = !update;
     });
@@ -32,8 +49,10 @@ class PatientController extends GetxController {
       authenticated.value = false;
     }, (right) {
       _token = right.token;
-      _patient = right.dataToReturn;
+      // _patient = right.dataToReturn;
+      patient.value = right.dataToReturn;
       authenticated.value = true;
+      getDoctors();
     });
     return authenticated.value;
   }
@@ -45,7 +64,8 @@ class PatientController extends GetxController {
 
   Future logout() async {
     _token = "";
-    _patient = Patient();
+    // _patient = Patient();
+    patient.value = Patient();
     authenticated.value = false;
     return !authenticated.value;
   }

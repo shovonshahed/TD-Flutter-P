@@ -3,12 +3,40 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:teledoc/models/doctor.dart';
 
 import '../models/index.dart';
 
 class NetworkService {
-  static const url = "http://10.0.2.2:5073";
+  static const url = "https://teledoc.azurewebsites.net";
+  // static const url = "http://10.0.2.2:5073";
   // static const url = "10.0.2.2:7116";
+
+  static Future<Either<String, List<Doctor>>> getDoctors(String token) async {
+    try {
+      Dio dio = new Dio();
+      dio.options.headers['content-Type'] = 'application/json';
+      dio.options.headers["Authorization"] = "Bearer ${token}";
+      var response = await dio.get(
+        url + '/api/doctors',
+      );
+      print(response.data);
+      if (response.statusCode == 200) {
+        List<dynamic> doctorsMap = response.data;
+        List<Doctor> doctors = [];
+        doctors = (doctorsMap)
+            .map((e) => Doctor.fromJson(e as Map<String, dynamic>))
+            .toList();
+        return Right(doctors);
+      } else {
+        return const Left("Some error occurred.");
+      }
+    } catch (e) {
+      print(e);
+      return const Left("Some error occurred.");
+      // throw e;
+    }
+  }
 
   static Future<Either<String, Patient>> updateProfile(
       Patient patient, String email, String token) async {

@@ -21,7 +21,9 @@ DeviceType getDeviceType() {
 class SideDrawer extends StatelessWidget {
   SideDrawer({
     Key? key,
+    required this.pageName,
   }) : super(key: key);
+  final String pageName;
   final PatientController controller = Get.find();
   @override
   Widget build(BuildContext context) {
@@ -41,9 +43,11 @@ class SideDrawer extends StatelessWidget {
               color: Color(0xFF06122A),
             ),
             InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, ProfileScreen.id);
-              },
+              onTap: pageName != 'profile-view'
+                  ? () {
+                      Navigator.pushNamed(context, ProfileScreen.id);
+                    }
+                  : null,
               child: Container(
                 height: 80.w,
                 // width: 500.w,
@@ -60,7 +64,7 @@ class SideDrawer extends StatelessWidget {
                           ? 122.w
                           : 220.w,
                       child: Text(
-                        controller.patient.name,
+                        controller.patient.value.name,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: TextStyle(
@@ -83,7 +87,13 @@ class SideDrawer extends StatelessWidget {
                 "Home",
                 style: TextStyle(color: Colors.white),
               ),
-              onTap: () => Navigator.pushNamed(context, HomeScreen.id),
+              onTap: pageName != 'home-page'
+                  ? () => Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        HomeScreen.id,
+                        (route) => false,
+                      )
+                  : null,
             ),
             ListTile(
               leading: Icon(
