@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:teledoc/view/screens/home_screen.dart';
-import 'package:teledoc/view/screens/login_screen.dart';
-import 'package:teledoc/view/screens/profile_edit_screen.dart';
-import 'package:teledoc/view/screens/profile_screen.dart';
-import 'package:teledoc/view/screens/register_screen.dart';
-import 'package:teledoc/view/screens/welcome_screen.dart';
+import 'view/screens/home_screen.dart';
+import 'view/screens/login_screen.dart';
+import 'view/screens/profile_edit_screen.dart';
+import 'view/screens/profile_screen.dart';
+import 'view/screens/register_screen.dart';
+import 'view/screens/welcome_screen.dart';
 
 void main() {
   runApp(const GetMaterialApp(home: MyApp()));

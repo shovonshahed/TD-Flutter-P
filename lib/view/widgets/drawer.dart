@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:teledoc/services/loading_service.dart';
-import 'package:teledoc/view/screens/home_screen.dart';
-import 'package:teledoc/view/screens/login_screen.dart';
-import 'package:teledoc/view/screens/welcome_screen.dart';
+import '../../services/loading_service.dart';
+import '../screens/home_screen.dart';
+import '../screens/login_screen.dart';
+import '../screens/welcome_screen.dart';
 
 import '../../constants/constants.dart';
 import '../../controllers/patient_controller.dart';

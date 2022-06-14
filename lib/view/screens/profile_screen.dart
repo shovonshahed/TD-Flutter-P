@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:teledoc/models/index.dart';
-import 'package:teledoc/view/screens/profile_edit_screen.dart';
+import 'package:intl/intl.dart';
+import '../../models/index.dart';
+import 'profile_edit_screen.dart';
 import '../../constants/constants.dart';
 
 import '../../controllers/patient_controller.dart';
@@ -56,7 +57,8 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, ProfileEditScreen.id);
+                          Navigator.popAndPushNamed(
+                              context, ProfileEditScreen.id);
                         },
                         child: Text(
                           "Edit",
@@ -87,7 +89,8 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   ProfileFieldWidget(
                     title: "Date Of Birth",
-                    value: patient.dateOfBirth ?? "",
+                    value:
+                        "${DateFormat.yMMMMd().format(DateTime.parse(patient.dateOfBirth!))}",
                     icon: CupertinoIcons.calendar,
                   ),
                   ProfileFieldWidget(

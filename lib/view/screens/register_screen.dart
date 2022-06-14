@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:teledoc/services/loading_service.dart';
-import 'package:teledoc/view/screens/login_screen.dart';
+import '../../services/loading_service.dart';
+import 'login_screen.dart';
 import 'dart:ui' as ui;
 
 import '../../controllers/patient_controller.dart';

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:teledoc/controllers/patient_controller.dart';
-import 'package:teledoc/view/screens/register_screen.dart';
-import 'package:teledoc/view/widgets/login_signup_background.dart';
+import '../../controllers/patient_controller.dart';
+import 'register_screen.dart';
+import '../widgets/login_signup_background.dart';
 import '../../constants/constants.dart';
 import '../../services/loading_service.dart';
 import '../widgets/input_fields.dart';
@@ -94,7 +94,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     left: 28.w, top: 110.h, right: 28.w, bottom: 37.h),
                 child: Text(
                   "Login",
-                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
                 ),
               ),
               Container(
@@ -108,7 +109,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     //   icon: CupertinoIcons.phone,
                     //   keyboardType: TextInputType.number,
                     // ),
-                    EmailInput(controller: emailController, hint: "Email", icon: Icons.email_outlined, keyboardType: TextInputType.emailAddress,),
+                    EmailInput(
+                      controller: emailController,
+                      hint: "Email",
+                      icon: Icons.email_outlined,
+                      keyboardType: TextInputType.emailAddress,
+                    ),
                     Container(
                       padding: EdgeInsets.only(bottom: 8.h),
                       child: Column(
@@ -152,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             Checkbox(
                                 materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
+                                    MaterialTapTargetSize.shrinkWrap,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5.sp)),
                                 value: rememberMe,
@@ -224,7 +230,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ],
           ),
-        ),),
+        ),
+      ),
       resizeToAvoidBottomInset: true,
     );
   }

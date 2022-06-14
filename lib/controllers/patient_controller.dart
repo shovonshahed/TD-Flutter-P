@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
-import 'package:teledoc/models/index.dart';
-import 'package:teledoc/services/network_service.dart';
+import '../models/index.dart';
+import '../services/network_service.dart';
 
 class PatientController extends GetxController {
   // late LoginResponse _loginResponse;
@@ -13,7 +13,7 @@ class PatientController extends GetxController {
 
   Future<bool> updateProfile(Patient patient) async {
     final Either<String, Patient> response =
-        await NetworkService.updateProfile(patient, _patient.email,_token);
+        await NetworkService.updateProfile(patient, _patient.email, _token);
     bool update = false;
     response.fold((left) {
       update = false;

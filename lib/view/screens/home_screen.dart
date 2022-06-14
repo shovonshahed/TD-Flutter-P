@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:teledoc/controllers/patient_controller.dart';
+import '../../controllers/patient_controller.dart';
 
 import '../widgets/drawer.dart';
 

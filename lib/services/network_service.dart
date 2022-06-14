@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
-import 'package:http/http.dart' as http;
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:teledoc/models/index.dart';
 
-import 'loading_service.dart';
+import '../models/index.dart';
 
 class NetworkService {
   static const url = "http://10.0.2.2:5073";
