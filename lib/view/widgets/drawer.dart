@@ -1,8 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:teledoc/view/screens/doctors_list_screen.dart';
+import 'package:teledoc/view/screens/file_upload_screen.dart';
+import 'package:teledoc/view/screens/hospitals_list_screen.dart';
+import 'package:teledoc/view/screens/primary_doctors_list_screen.dart';
 import '../../services/loading_service.dart';
+import '../screens/ambulance_list_screen.dart';
+import '../screens/appointments_list_screen.dart';
 import '../screens/home_screen.dart';
 import '../screens/login_screen.dart';
 import '../screens/welcome_screen.dart';
@@ -92,6 +99,118 @@ class SideDrawer extends StatelessWidget {
                         context,
                         HomeScreen.id,
                         (route) => false,
+                      )
+                  : null,
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.account_circle,
+                color: Colors.white,
+              ),
+              title: Text(
+                "Profile",
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: pageName != 'profile'
+                  ? () => Navigator.pushNamed(
+                        context,
+                        ProfileScreen.id,
+                      )
+                  : null,
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.account_box_outlined,
+                color: Colors.white,
+              ),
+              title: Text(
+                "Doctors",
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: pageName != DoctorsListScreen.id
+                  ? () => Navigator.pushNamed(
+                        context,
+                        DoctorsListScreen.id,
+                      )
+                  : null,
+            ),
+            ListTile(
+              leading: Icon(
+                CupertinoIcons.building_2_fill,
+                color: Colors.white,
+              ),
+              title: Text(
+                "Hospitals",
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: pageName != HospitalsListScreen.id
+                  ? () => Navigator.pushNamed(
+                        context,
+                        HospitalsListScreen.id,
+                      )
+                  : null,
+            ),
+            ListTile(
+              leading: Icon(
+                CupertinoIcons.car_detailed,
+                color: Colors.white,
+              ),
+              title: Text(
+                "Ambulance",
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: pageName != AmbulanceListScreen.id
+                  ? () => Navigator.pushNamed(
+                        context,
+                        AmbulanceListScreen.id,
+                      )
+                  : null,
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.phone,
+                color: Colors.white,
+              ),
+              title: Text(
+                "Primary Counsil",
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: pageName != PrimaryDoctorsListScreen.id
+                  ? () => Navigator.pushNamed(
+                        context,
+                        PrimaryDoctorsListScreen.id,
+                      )
+                  : null,
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.input,
+                color: Colors.white,
+              ),
+              title: Text(
+                "My Appointments",
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: pageName != 'appintments-page'
+                  ? () => Navigator.pushNamed(
+                        context,
+                        AppointmentsListScreen.id,
+                      )
+                  : null,
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.input,
+                color: Colors.white,
+              ),
+              title: Text(
+                "Upload My Files",
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: pageName != 'file-upload'
+                  ? () => Navigator.pushNamed(
+                        context,
+                        FileUploadScreen.id,
                       )
                   : null,
             ),

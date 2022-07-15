@@ -410,7 +410,7 @@ class ProfileFieldWidget extends StatelessWidget {
                   style: TextStyle(fontSize: 14.sp, color: kColorLite),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "strings.fieldValidator";
+                      return "This field cannot be empty";
                     }
                     return null;
                   },

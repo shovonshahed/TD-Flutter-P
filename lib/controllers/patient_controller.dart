@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
+import 'package:teledoc/models/ambulance.dart';
 import 'package:teledoc/models/doctor.dart';
+import 'package:teledoc/models/hospital.dart';
+import 'package:teledoc/models/primaryDoctor.dart';
 import 'package:teledoc/models/schedule.dart';
 import 'package:teledoc/services/loading_service.dart';
 import '../models/index.dart';
@@ -13,9 +18,69 @@ class PatientController extends GetxController {
   late String _token;
   // List<Doctor> doctors = [];
   var doctors = <Doctor>[].obs;
+  var schedules = <Schedule>[].obs;
+  var hospitals = <Hospital>[].obs;
+  var primaryDoctors = <PrimaryDoctor>[].obs;
+  var ambulances = <Ambulance>[].obs;
   RxBool authenticated = false.obs;
 
   // Patient get patient => _patient;
+
+  Future uploadFile(File file) async {
+    return NetworkService.uploadFile(file, _token);
+  }
+
+  Future getAmbulances() async {
+    final Either<String, List<Ambulance>> response =
+        await NetworkService.getAmbulances(_token);
+    response.fold((left) {
+      CustomDialog.showToast("Doctors loading failed");
+    }, (right) {
+      ambulances.value = right;
+      if (ambulances.value.isNotEmpty)
+        print("ambulance Name: ${ambulances.elementAt(1).name}");
+    });
+    notifyChildrens();
+  }
+
+  Future getPrimaryDoctors() async {
+    final Either<String, List<PrimaryDoctor>> response =
+        await NetworkService.getPrimaryDoctors(_token);
+    response.fold((left) {
+      CustomDialog.showToast("Doctors loading failed");
+    }, (right) {
+      primaryDoctors.value = right;
+      if (primaryDoctors.value.isNotEmpty)
+        print("Doctor Name: ${primaryDoctors.value.elementAt(1).name}");
+    });
+    notifyChildrens();
+  }
+
+  Future getHospitals() async {
+    final Either<String, List<Hospital>> response =
+        await NetworkService.getHospitals(_token);
+    response.fold((left) {
+      CustomDialog.showToast("Doctors loading failed");
+    }, (right) {
+      hospitals.value = right;
+      if (hospitals.value.isNotEmpty)
+        print("Hospital Name: ${hospitals.value.first.name}");
+    });
+    notifyChildrens();
+  }
+
+  Future getMyAppointments() async {
+    final Either<String, List<Schedule>> response =
+        await NetworkService.getMyAppointments(_token);
+    response.fold((left) {
+      CustomDialog.showToast("Appointments loading failed");
+    }, (right) {
+      schedules.value = right;
+      if (schedules.value.isNotEmpty)
+        print("Appointment Name: ${schedules.value.first.dayOfWeek}");
+    });
+    notifyChildrens();
+  }
 
   Future getDoctors() async {
     final Either<String, List<Doctor>> response =
@@ -24,7 +89,19 @@ class PatientController extends GetxController {
       CustomDialog.showToast("Doctors loading failed");
     }, (right) {
       doctors.value = right;
-      print("Doctor Name: ${doctors.elementAt(1).name}");
+      if (doctors.value.isNotEmpty)
+        print("Doctor Name: ${doctors.elementAt(1).name}");
+    });
+    notifyChildrens();
+  }
+
+  Future getDoctorsByName(String keyWord) async {
+    final Either<String, List<Doctor>> response =
+        await NetworkService.getDoctorsByName(_token, keyWord);
+    response.fold((left) {
+      // CustomDialog.showToast("Doctors loading failed");
+    }, (right) {
+      doctors.value = right;
     });
     notifyChildrens();
   }
@@ -37,6 +114,7 @@ class PatientController extends GetxController {
       update = false;
     }, (right) {
       update = !update;
+      getMyAppointments();
     });
     return update;
   }
@@ -66,6 +144,10 @@ class PatientController extends GetxController {
       patient.value = right.dataToReturn;
       authenticated.value = true;
       getDoctors();
+      getMyAppointments();
+      getHospitals();
+      getPrimaryDoctors();
+      getAmbulances();
     });
     return authenticated.value;
   }

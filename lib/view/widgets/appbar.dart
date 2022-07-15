@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../screens/doctor_search_delegate.dart';
+
 class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyCustomAppBar({
     Key? key,
@@ -20,6 +22,16 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         },
         icon: Icon(Icons.menu),
       ),
+      actions: [
+        (title == 'Teledoc' || title == 'Doctors')
+            ? IconButton(
+                onPressed: () {
+                  showSearch(
+                      context: context, delegate: DoctorSearchDelegate());
+                },
+                icon: Icon(Icons.search_outlined))
+            : SizedBox.shrink()
+      ],
     );
   }
 
