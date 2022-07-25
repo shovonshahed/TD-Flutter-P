@@ -198,22 +198,22 @@ class SideDrawer extends StatelessWidget {
                       )
                   : null,
             ),
-            ListTile(
-              leading: Icon(
-                Icons.input,
-                color: Colors.white,
-              ),
-              title: Text(
-                "Upload My Files",
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: pageName != 'file-upload'
-                  ? () => Navigator.pushNamed(
-                        context,
-                        FileUploadScreen.id,
-                      )
-                  : null,
-            ),
+            // ListTile(
+            //   leading: Icon(
+            //     Icons.input,
+            //     color: Colors.white,
+            //   ),
+            //   title: Text(
+            //     "Upload My Files",
+            //     style: TextStyle(color: Colors.white),
+            //   ),
+            //   onTap: pageName != 'file-upload'
+            //       ? () => Navigator.pushNamed(
+            //             context,
+            //             FileUploadScreen.id,
+            //           )
+            //       : null,
+            // ),
             ListTile(
               leading: Icon(
                 Icons.logout,
